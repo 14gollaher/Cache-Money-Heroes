@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 03ffc94257a1f7b46bf898ef2581f301
+timeCreated: 1491958884
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - rb2d: {instanceID: 0}
+  - ArrowPrefab: {instanceID: 0}
+  - WolfPrefab: {instanceID: 0}
+  - Key: {fileID: 1125031702128654, guid: 8e6568de07718834baeeca857e1c161b, type: 2}
+  - ArrowSpawn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
