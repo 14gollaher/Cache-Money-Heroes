@@ -34,7 +34,7 @@ public class EnemyFixed : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        Transitioner.enemiesKilled += 1;
 
         if (health <= 0)
         {
@@ -52,7 +52,6 @@ public class EnemyFixed : MonoBehaviour
                 var dungeonManager = GetComponentInParent<MiniDungeonManager>();
                 dungeonManager.enemiesForKeyPrivate += -1;
             }
-
 
             //PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
             //int currentScore = PlayerPrefs.GetInt("highScore");

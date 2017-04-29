@@ -6,20 +6,26 @@ using UnityEngine.SceneManagement;
 public class Transitioner : MonoBehaviour {
 
     public string nextScene;
-
+    public int enemiesToKill;
+    public static int enemiesKilled;
 
     // Use this for initialization
     void Start () {
-		
+
+        enemiesKilled = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+
 	}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene(nextScene);
+        if (enemiesKilled == enemiesToKill)
+        {
+            SceneManager.LoadScene(nextScene);
+        }
     }
 }
