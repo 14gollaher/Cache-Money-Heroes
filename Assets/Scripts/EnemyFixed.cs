@@ -138,7 +138,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAround0(float x)
     {
-        if (x < .2 && x > -.2)
+        if (x < .3 && x > -.3)
         {
             return true;
         }
@@ -150,7 +150,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundPositive1(float x)
     {
-        if (x < 1.2 && x > .8)
+        if (x < 1.3 && x > .7)
         {
             return true;
         }
@@ -162,7 +162,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundNegative1(float x)
     {
-        if (x < -.8 && x > -1.2)
+        if (x < -.7 && x > -1.3)
         {
             return true;
         }
