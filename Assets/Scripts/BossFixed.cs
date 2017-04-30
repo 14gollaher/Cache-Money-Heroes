@@ -192,7 +192,7 @@ public class BossFixed : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        else if (collision.gameObject.tag == "PlayerPet" || collision.gameObject.tag == "PlayerSpecial")
+        else if (collision.gameObject.tag == "PlayerPet" || collision.gameObject.tag == "PlayerUltimate")
         {
             rb2d.velocity = new Vector2((transform.position.x - collision.gameObject.transform.position.x) * 10, rb2d.velocity.y);
             SpriteRend.color = new Color(255F, 0F, 0F, .75F);

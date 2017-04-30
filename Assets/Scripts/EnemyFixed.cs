@@ -179,14 +179,16 @@ public class EnemyFixed : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PlayerWeapon")
+        if (collision.gameObject.tag == "PlayerWeapon" || collision.gameObject.tag == "PlayerUltimate")
         {
             SpriteRend.color = new Color(255F, 0F, 0F, .75F);
             rb2d.velocity = new Vector2((transform.position.x - collision.gameObject.transform.position.x) * 25, rb2d.velocity.y);
 
             timeStamp = Time.time + .35F;
 			health = health - UIManager.attack;
-            Destroy(collision.gameObject);
+
+            if (collision.gameObject.tag == "PlayerWeapon")
+                Destroy(collision.gameObject);
         }
 
         else if (collision.gameObject.tag == "PlayerPet")
