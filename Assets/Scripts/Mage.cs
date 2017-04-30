@@ -13,6 +13,8 @@ public class Mage : MonoBehaviour {
 	public GameObject SpellPrefabEast;
 	public GameObject SpellPrefabWest;
 	public GameObject ShieldSpell;
+	public GameObject TornadoSpell;
+	public GameObject SpellShot;
 	public Transform SpellSpawn;
 
 	// Player Stats
@@ -21,7 +23,8 @@ public class Mage : MonoBehaviour {
 	public int mana = 3;
 
 	// Firing Speed
-	public int shotSpeed = 1200;
+	public int shotSpeed = 10000;
+	public int fireLionSpeed = 1200;
 	public float fireDelay = 0.25F;
 	private float nextFire = 0.25F;
 	private float myTime = 0.0F;
@@ -110,11 +113,29 @@ public class Mage : MonoBehaviour {
 			myTime = 0.0F;
 		}
 
+		if (Input.GetKeyDown(KeyCode.Alpha1) && myTime > nextFire)
+		{
+			animator.SetTrigger("UseAbility");
+			nextFire = myTime + fireDelay;
+			Invoke("FlameLion", .5F);
+			nextFire = nextFire - myTime;
+			myTime = 0.0F;
+		}
+
 		if (Input.GetKeyDown(KeyCode.Alpha2) && myTime > nextFire)
 		{
 			animator.SetTrigger("UseAbility");
 			nextFire = myTime + fireDelay;
-			Invoke("Shield", 2F);
+			Invoke("Shield", .5F);
+			nextFire = nextFire - myTime;
+			myTime = 0.0F;
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha3) && myTime > nextFire)
+		{
+			animator.SetTrigger("UseAbility");
+			nextFire = myTime + fireDelay;
+			Invoke("Tornado", .5F);
 			nextFire = nextFire - myTime;
 			myTime = 0.0F;
 		}
@@ -126,33 +147,65 @@ public class Mage : MonoBehaviour {
 	{
 		if (animator.GetInteger("Direction") == 0)
 		{
-			var spell = Instantiate(SpellPrefabSouth, SpellSpawn.position, SpellSpawn.rotation);
+			var spell = Instantiate(SpellShot, SpellSpawn.position, SpellSpawn.rotation);
 			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * -1 * shotSpeed);
-			Destroy(spell, 1.333f);
+			Destroy(spell, 3f);
 		}
 		else if (animator.GetInteger("Direction") == 1)
 		{
-			var spell = Instantiate(SpellPrefabWest, SpellSpawn.position, SpellSpawn.rotation);
-			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.right * -1 * shotSpeed);
-			Destroy(spell, 1.333f);
+			var spell = Instantiate(SpellShot, SpellSpawn.position, Quaternion.Euler(0, 0, 270));
+			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * -1 * shotSpeed);
+			Destroy(spell, 3f);
 		}
 		else if (animator.GetInteger("Direction") == 2)
 		{
-			var spell = Instantiate(SpellPrefabNorth, SpellSpawn.position, SpellSpawn.rotation);
-			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * shotSpeed);
-			Destroy(spell, 1.333f);
+			var spell = Instantiate(SpellShot, SpellSpawn.position, Quaternion.Euler(0, 0, 180));
+			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * -1 * shotSpeed);
+			Destroy(spell, 3f);
 		}
 		else if (animator.GetInteger("Direction") == 3)
 		{
-			var spell = Instantiate(SpellPrefabEast, SpellSpawn.position, SpellSpawn.rotation);
-			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.right * shotSpeed);
-			Destroy(spell, 1.333f);
+			var spell = Instantiate(SpellShot, SpellSpawn.position, Quaternion.Euler(0, 0, 90));
+			spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * -1 * shotSpeed);
+			Destroy(spell, 3f);
 		}
+	}
+
+	void FlameLion()
+	{
+		var spell = Instantiate(SpellPrefabSouth, SpellSpawn.position, SpellSpawn.rotation);
+		spell.GetComponent<Rigidbody2D>().AddForce(spell.transform.up * -1 * fireLionSpeed);
+		spell.transform.parent = this.gameObject.transform;
+		Destroy(spell, 1.333f);
+
+		var spell2 = Instantiate(SpellPrefabWest, SpellSpawn.position, SpellSpawn.rotation);
+		spell2.GetComponent<Rigidbody2D>().AddForce(spell2.transform.right * -1 * (fireLionSpeed + 200));
+		spell2.transform.parent = this.gameObject.transform;
+
+		Destroy(spell2, 1.333f);
+		var spell3 = Instantiate(SpellPrefabNorth, SpellSpawn.position, SpellSpawn.rotation);
+		spell3.GetComponent<Rigidbody2D>().AddForce(spell3.transform.up * fireLionSpeed);
+		spell3.transform.parent = this.gameObject.transform;
+		Destroy(spell3, 1.333f);
+
+		var spell4 = Instantiate(SpellPrefabEast, SpellSpawn.position, SpellSpawn.rotation);
+		spell4.GetComponent<Rigidbody2D>().AddForce(spell4.transform.right * (fireLionSpeed + 200));
+		spell4.transform.parent = this.gameObject.transform;
+		Destroy(spell4, 1.333f);
 	}
 
 	void Shield()
 	{
 		var shield = Instantiate(ShieldSpell, SpellSpawn.position, SpellSpawn.rotation);
+		shield.transform.parent = this.gameObject.transform;
 		Destroy(shield, 5F);
+	}
+
+	void Tornado()
+	{
+		Vector3 temp = new Vector3(0, 15F, 0);
+		var tornado = Instantiate(TornadoSpell, SpellSpawn.position + temp, SpellSpawn.rotation);
+		tornado.transform.parent = this.gameObject.transform;
+		Destroy(tornado, 5F);
 	}
 }
