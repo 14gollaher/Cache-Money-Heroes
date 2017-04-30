@@ -35,24 +35,28 @@ public class EnemyFixed : MonoBehaviour
     void FixedUpdate()
     {
 
+   //     if (health <= 0)
+   //     {
+			//if (UIManager.manaValue < 10) {
+			//	UIManager.manaValue++;
+			//}
+   //         Destroy(this.gameObject);
+   //     }
+
 
         if (health <= 0)
         {
-			if (UIManager.manaValue < 10) {
-				UIManager.manaValue++;
-			}
-            Destroy(this.gameObject);
-        }
+            Transitioner.enemiesKilled += 1;
 
-
-        if (health <= 0)
-        {
+            if (UIManager.manaValue < 10)
+            {
+                UIManager.manaValue++;
+            }
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
                 var dungeonManager = GetComponentInParent<MiniDungeonManager>();
                 dungeonManager.enemiesForKeyPrivate += -1;
             }
-
 
             //PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
             //int currentScore = PlayerPrefs.GetInt("highScore");
@@ -139,7 +143,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAround0(float x)
     {
-        if (x < .2 && x > -.2)
+        if (x < .3 && x > -.3)
         {
             return true;
         }
@@ -151,7 +155,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundPositive1(float x)
     {
-        if (x < 1.2 && x > .8)
+        if (x < 1.3 && x > .7)
         {
             return true;
         }
@@ -163,7 +167,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundNegative1(float x)
     {
-        if (x < -.8 && x > -1.2)
+        if (x < -.7 && x > -1.3)
         {
             return true;
         }

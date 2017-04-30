@@ -39,16 +39,22 @@ public class BossFixed : MonoBehaviour
     {
 
 
+   //     if (health <= 0)
+   //     {
+   //         animator.SetTrigger("Death");
+   //         animator.SetBool("Move", false);
+			//Destroy (this.gameObject);//, deathAnimation.length*2);
+   //     }
+
+
         if (health <= 0)
         {
+            Transitioner.enemiesKilled += 1;
+
             animator.SetTrigger("Death");
             animator.SetBool("Move", false);
-			Destroy (this.gameObject);//, deathAnimation.length*2);
-        }
+            Destroy(this.gameObject);//, deathAnimation.length*2);
 
-
-        if (health <= 0)
-        {
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
                 var dungeonManager = GetComponentInParent<MiniDungeonManager>();
