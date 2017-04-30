@@ -68,7 +68,16 @@ public class Archer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "EnemyMelee" || collision.gameObject.tag == "BossEnemy")
+
+        if (collision.gameObject.tag == "EnemyShot")
+        {
+            SpriteRend.color = new Color(255F, 0F, 0F, .75F);
+            rb2d.velocity = new Vector2((transform.position.x - collision.gameObject.transform.position.x) * 25, rb2d.velocity.y);
+            health = health - 1;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "EnemyMelee" || collision.gameObject.tag == "BossEnemy" || collision.gameObject.tag == "EnemyShot")
         {
             if (!isImmune)
             {
@@ -150,6 +159,7 @@ public class Archer : MonoBehaviour
     void Update()
     {
 		health = UIManager.healthValue;
+
 		if (health <= 0)
         {
             SceneManager.LoadScene("MainMenu");
@@ -157,6 +167,8 @@ public class Archer : MonoBehaviour
         
         if (isInvisible == true)
         {
+            SpriteRend.color = new Color(1F, 1F, 1F, 0.25F);
+
             if (invisibleTimeStamp < Time.time)
             {
                 SpriteRend.color = new Color(1F, 1F, 1F, 1F);
@@ -203,55 +215,57 @@ public class Archer : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        // Controls Attack and FireRate
-        if (Input.GetKeyDown(KeyCode.Space) && myTime > nextFire)
+        if (isInvisible == false)
         {
-            // Need to fix the fire rate
-            animator.SetTrigger("Attack");
-            nextFire = myTime + fireDelay;
-            Invoke("Fire", 0.7692308F / 2);
-            nextFire = nextFire - myTime;
-            myTime = 0.0F;
-        }
+            // Controls Attack and FireRate
+            if (Input.GetKeyDown(KeyCode.Space) && myTime > nextFire)
+            {
+                // Need to fix the fire rate
+                animator.SetTrigger("Attack");
+                nextFire = myTime + fireDelay;
+                Invoke("Fire", 0.7692308F / 2);
+                nextFire = nextFire - myTime;
+                myTime = 0.0F;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && myTime > nextFire)
-        {
-            // Need to fix the fire rate
-            animator.SetTrigger("Attack");
-            nextFire = myTime + fireDelay;
-            Invoke("TripleShot", 0.7692308F / 2);
-            nextFire = nextFire - myTime;
-            myTime = 0.0F;
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha1) && myTime > nextFire)
+            {
+                // Need to fix the fire rate
+                animator.SetTrigger("Attack");
+                nextFire = myTime + fireDelay;
+                Invoke("TripleShot", 0.7692308F / 2);
+                nextFire = nextFire - myTime;
+                myTime = 0.0F;
+            }
 
-        // Cloak Ability
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            animator.SetTrigger("UseAbility");
-            invisibleTimeStamp = Time.time + 5;
-            Cloak();
-        }
+            // Cloak Ability
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                animator.SetTrigger("UseAbility");
+                invisibleTimeStamp = Time.time + 5;
+                Cloak();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            animator.SetTrigger("UseAbility");
-            Wolf();
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                animator.SetTrigger("UseAbility");
+                Wolf();
+            }
 
-		if (Input.GetKeyDown (KeyCode.Alpha0)) {
-			PMenu.SetActive (true);
-            Time.timeScale = 0;
+		    if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			    PMenu.SetActive (true);
+                Time.timeScale = 0;
+            }
+            if (Input.GetKeyDown (KeyCode.Alpha9)) {
+			    if (InventoryState == 0) {
+				    InventoryView.SetActive (true);
+				    InventoryState = 1;
+			    } else {
+				    InventoryView.SetActive (false);
+				    InventoryState = 0;
+			    }
+		    }
         }
-        if (Input.GetKeyDown (KeyCode.Alpha9)) {
-			if (InventoryState == 0) {
-				InventoryView.SetActive (true);
-				InventoryState = 1;
-			} else {
-				InventoryView.SetActive (false);
-				InventoryState = 0;
-			}
-
-		}
         // Move the player
         transform.Translate(horizontal * speed, vertical * speed, 0);
     }
@@ -351,8 +365,8 @@ public class Archer : MonoBehaviour
     }
     void Wolf()
     {
-		if (UIManager.manaValue >= 5) {
-			UIManager.manaValue = UIManager.manaValue - 5;
+		if (UIManager.manaValue >= 6) {
+			UIManager.manaValue = UIManager.manaValue - 6;
 			var go = Instantiate (WolfPrefab);
 			Transform thisPlayer = transform;
 			go.SendMessage ("TheStart", thisPlayer);

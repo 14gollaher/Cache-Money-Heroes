@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //Heart HUD Handler
         if (maxHealth >= 16)
             HE.SetActive(true);

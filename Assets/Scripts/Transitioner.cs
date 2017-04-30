@@ -9,6 +9,7 @@ public class Transitioner : MonoBehaviour {
     public int enemiesToKill;
     public static int enemiesKilled;
 
+
     // Use this for initialization
     void Start () {
 
@@ -23,9 +24,19 @@ public class Transitioner : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (enemiesKilled == enemiesToKill)
+        if (nextScene != "CastleFront")
         {
-            SceneManager.LoadScene(nextScene);
+            if (enemiesKilled == enemiesToKill)
+            {
+                SceneManager.LoadScene(nextScene);
+            }
+        }
+        else
+        {
+            if (InventoryManager.keyValue == 4)
+            {
+                SceneManager.LoadScene(nextScene);
+            }
         }
     }
 }

@@ -5,59 +5,57 @@ using UnityEngine.UI;
 using System.Diagnostics;
 using UnityEngine.SceneManagement;
 
-public class EnemyFixed : MonoBehaviour
+public class EnemyFixedRanged : MonoBehaviour
 {
 
     public float health;
     public float speed;
     public float pullRange;
     public Transform player;
-    private Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     private Animator animator;
     private bool movedPosition = false;
     private float initialPositionX;
     private float initialPositionY;
     private SpriteRenderer SpriteRend;
     private float timeStamp;
-    //public Text scoreText;
+    public GameObject ArrowPrefab;
+    public Transform ArrowSpawn;
+    public int shotSpeed = 12000;
+    public float fireDelay = 0.25F;
+    private float nextFire = 0.25F;
+    private float myTime = 0.0F;
+
     void Start()
     {
-        //int currentScore = PlayerPrefs.GetInt("highScore");
-        //scoreText.text = ("Enemies Slain : " + currentScore.ToString());
-
         initialPositionX = transform.position.x;
         initialPositionY = transform.position.y;
-        rb2d = GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         SpriteRend = this.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
     {
-
-   //     if (health <= 0)
-   //     {
-			//if (UIManager.manaValue < 10) {
-			//	UIManager.manaValue++;
-			//}
-   //         Destroy(this.gameObject);
-   //     }
+        myTime = myTime + Time.deltaTime;
 
 
         if (health <= 0)
         {
-            Transitioner.enemiesKilled += 1;
+            Destroy(this.gameObject);
+        }
 
-            if (UIManager.manaValue < 10)
-            {
-                UIManager.manaValue++;
-            }
+
+        if (health <= 0)
+        {
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
                 var dungeonManager = GetComponentInParent<MiniDungeonManager>();
                 dungeonManager.enemiesForKeyPrivate += -1;
             }
 
+
+            PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
+            int currentScore = PlayerPrefs.GetInt("highScore");
             Destroy(this.gameObject);
         }
 
@@ -81,14 +79,15 @@ public class EnemyFixed : MonoBehaviour
             }
         }
 
-        else if ((distance < pullRange))
+
+        else if ((distance < pullRange) && myTime > nextFire)
         {
             movedPosition = true;
             float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
-            transform.eulerAngles = new Vector3(0, 0, z);
-            rb2d.AddForce(gameObject.transform.up * speed);
-            animator.SetInteger("Direction", 2);
-            animator.SetBool("Move", true);
+            nextFire = myTime + fireDelay;
+            Invoke("Fire", 0.7692308F / 2);
+            nextFire = nextFire - myTime;
+            myTime = 0.0F;
         }
 
         else if (movedPosition)
@@ -138,9 +137,37 @@ public class EnemyFixed : MonoBehaviour
         }
     }
 
+    void Fire()
+    {
+        if (animator.GetInteger("Direction") == 0)
+        {
+            var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 90));
+            arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
+            Destroy(arrow, 5.0f);
+        }
+        else if (animator.GetInteger("Direction") == 1)
+        {
+            var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 360));
+            arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
+            Destroy(arrow, 5.0f);
+        }
+        else if (animator.GetInteger("Direction") == 2)
+        {
+            var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 270));
+            arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
+            Destroy(arrow, 5.0f);
+        }
+        else if (animator.GetInteger("Direction") == 3)
+        {
+            var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 180, 0));
+            arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
+            Destroy(arrow, 5.0f);
+        }
+    }
+
     private bool isAround0(float x)
     {
-        if (x < .3 && x > -.3)
+        if (x < .2 && x > -.2)
         {
             return true;
         }
@@ -152,7 +179,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundPositive1(float x)
     {
-        if (x < 1.3 && x > .7)
+        if (x < 1.2 && x > .8)
         {
             return true;
         }
@@ -164,7 +191,7 @@ public class EnemyFixed : MonoBehaviour
 
     private bool isAroundNegative1(float x)
     {
-        if (x < -.7 && x > -1.3)
+        if (x < -.8 && x > -1.2)
         {
             return true;
         }
@@ -182,7 +209,7 @@ public class EnemyFixed : MonoBehaviour
             rb2d.velocity = new Vector2((transform.position.x - collision.gameObject.transform.position.x) * 25, rb2d.velocity.y);
 
             timeStamp = Time.time + .35F;
-			health = health - UIManager.attack;
+            health--;
             Destroy(collision.gameObject);
         }
 
@@ -192,7 +219,6 @@ public class EnemyFixed : MonoBehaviour
             SpriteRend.color = new Color(255F, 0F, 0F, .75F);
             timeStamp = Time.time + .35F;
             health--;
-		
         }
     }
 }
