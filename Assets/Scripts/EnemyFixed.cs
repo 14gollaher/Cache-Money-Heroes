@@ -34,19 +34,24 @@ public class EnemyFixed : MonoBehaviour
 
     void FixedUpdate()
     {
-        Transitioner.enemiesKilled += 1;
+
+   //     if (health <= 0)
+   //     {
+			//if (UIManager.manaValue < 10) {
+			//	UIManager.manaValue++;
+			//}
+   //         Destroy(this.gameObject);
+   //     }
+
 
         if (health <= 0)
         {
-			if (UIManager.manaValue < 10) {
-				UIManager.manaValue++;
-			}
-            Destroy(this.gameObject);
-        }
+            Transitioner.enemiesKilled += 1;
 
-
-        if (health <= 0)
-        {
+            if (UIManager.manaValue < 10)
+            {
+                UIManager.manaValue++;
+            }
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
                 var dungeonManager = GetComponentInParent<MiniDungeonManager>();
