@@ -16,19 +16,18 @@ public class PauseMenu : MonoBehaviour {
 	public GameObject HMenu;
 	public GameObject SScreen;
 
-	// Use this for initialization
 	void Start()
 	{
 		resumeText = resumeText.GetComponent<Button>();
 		exitText = exitText.GetComponent<Button>();
 	}
 
-	public void ExitPress() //this function will be used on our Exit button
+	public void ExitPress()
 	{
 		resumeGame ();
 		SceneManager.LoadScene ("MainMenu");
 	}
-	public void resumeGame() //this function will be used on our Play button
+	public void resumeGame() 
 	{
         Time.timeScale = 1;
         PMenu.SetActive (false);
@@ -52,7 +51,6 @@ public class PauseMenu : MonoBehaviour {
 		SScreen.SetActive (false);
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 

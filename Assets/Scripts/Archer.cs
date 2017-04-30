@@ -4,23 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class Archer : MonoBehaviour
 {
-
     private Animator animator;
     private SpriteRenderer SpriteRend;
     public Rigidbody2D rb2d;
     public GameObject ArrowPrefab;
     public GameObject WolfPrefab;
     public Transform ArrowSpawn;
-    public int enemiesForKeyPublic;
-    // Player Stats
     public float speed = 1F;
     public int health = 16;
-    //public int focus = 3;
 	public GameObject PMenu;
 	public GameObject InventoryView;
 	public static int InventoryState = 0;
-
-    // Firing Speed
     public int shotSpeed = 12000;
     public float fireDelay = 0.25F;
     private float nextFire = 0.25F;
@@ -32,7 +26,6 @@ public class Archer : MonoBehaviour
     private float transformX;
     private float transformY;
 
-    // Use this for initialization
     void Start()
     {
         animator = this.GetComponent<Animator>();
@@ -98,7 +91,6 @@ public class Archer : MonoBehaviour
         {
             SceneManager.LoadScene("Outdoor");
             transform.position = new Vector3(1876, -2529);
-
         }
 
         else if (collision.gameObject.tag == "Key" && "GrassDungeon" == PlayerPrefs.GetString("previousScene"))
@@ -121,29 +113,20 @@ public class Archer : MonoBehaviour
     {
         if (other.gameObject.tag == "EarthDungeonTransition")
         {
-            //PlayerPrefs.SetFloat("TransformX", 742.2964F);
-            //PlayerPrefs.SetFloat("TransformY", -789.8214F);
             SceneManager.LoadScene("EarthDungeon");
         }
         else if (other.gameObject.tag == "GrassDungeonTransition")
         {
-            //PlayerPrefs.SetFloat("TransformX", 1123F);
-            //PlayerPrefs.SetFloat("TransformY", -486F);
             SceneManager.LoadScene("GrassDungeon");
         }
 
         else if (other.gameObject.tag == "IceDungeonTransition")
         {
-
-            //PlayerPrefs.SetFloat("TransformX", 959.4304F);
-            //PlayerPrefs.SetFloat("TransformY", -864.0476F);
             SceneManager.LoadScene("IceDungeon");
         }
 
         else if (other.gameObject.tag == "FireDungeonTransition")
         {
-            //PlayerPrefs.SetFloat("TransformX", -1741.483F);
-            //PlayerPrefs.SetFloat("TransformY", -1360.215F);
             SceneManager.LoadScene("FireDungeon");
         }
 
@@ -155,7 +138,6 @@ public class Archer : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 		health = UIManager.healthValue;
@@ -189,7 +171,6 @@ public class Archer : MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal");
         myTime = myTime + Time.deltaTime;
 
-        // Controls Movement
         if (Input.GetKey("up") || Input.GetKey("w"))
         {
             animator.SetInteger("Direction", 2);
@@ -217,10 +198,8 @@ public class Archer : MonoBehaviour
 
         if (isInvisible == false)
         {
-            // Controls Attack and FireRate
             if (Input.GetKeyDown(KeyCode.Space) && myTime > nextFire)
             {
-                // Need to fix the fire rate
                 animator.SetTrigger("Attack");
                 nextFire = myTime + fireDelay;
                 Invoke("Fire", 0.7692308F / 2);
@@ -230,7 +209,6 @@ public class Archer : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Alpha1) && myTime > nextFire)
             {
-                // Need to fix the fire rate
                 animator.SetTrigger("Attack");
                 nextFire = myTime + fireDelay;
                 Invoke("TripleShot", 0.7692308F / 2);
@@ -238,7 +216,6 @@ public class Archer : MonoBehaviour
                 myTime = 0.0F;
             }
 
-            // Cloak Ability
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 animator.SetTrigger("UseAbility");
@@ -266,7 +243,6 @@ public class Archer : MonoBehaviour
 			    }
 		    }
         }
-        // Move the player
         transform.Translate(horizontal * speed, vertical * speed, 0);
     }
 
@@ -313,6 +289,7 @@ public class Archer : MonoBehaviour
 				Destroy (arrow, 3.0f);
 				Destroy (arrow2, 3.0f);
 				Destroy (arrow3, 3.0f);
+
 			} else if (animator.GetInteger ("Direction") == 1) {
 				var arrow = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 340));
 				var arrow2 = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 360));
@@ -325,6 +302,7 @@ public class Archer : MonoBehaviour
 				Destroy (arrow, 3.0f);
 				Destroy (arrow2, 3.0f);
 				Destroy (arrow3, 3.0f);
+
 			} else if (animator.GetInteger ("Direction") == 2) {
 				var arrow = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 250));
 				var arrow2 = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 270));
@@ -337,6 +315,7 @@ public class Archer : MonoBehaviour
 				Destroy (arrow, 3.0f);
 				Destroy (arrow2, 3.0f);
 				Destroy (arrow3, 3.0f);
+
 			} else if (animator.GetInteger ("Direction") == 3) {
 
 				var arrow = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 180, -20));
@@ -355,18 +334,22 @@ public class Archer : MonoBehaviour
     }
     void Cloak()
     {
-		if (UIManager.manaValue >= 3) {
+		if (UIManager.manaValue >= 3)
+        {
+
 			UIManager.manaValue = UIManager.manaValue - 3;
 			SpriteRend.color = new Color (1F, 1F, 1F, 0.25F);
 			isInvisible = true;
+
 			if (UIManager.healthValue < UIManager.maxHealth)
 				UIManager.healthValue++;
 		}
     }
     void Wolf()
     {
-		if (UIManager.manaValue >= 6) {
-			UIManager.manaValue = UIManager.manaValue - 6;
+		if (UIManager.manaValue >= 5)
+        {
+			UIManager.manaValue = UIManager.manaValue - 5;
 			var go = Instantiate (WolfPrefab);
 			Transform thisPlayer = transform;
 			go.SendMessage ("TheStart", thisPlayer);

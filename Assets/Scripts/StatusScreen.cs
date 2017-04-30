@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusScreen : MonoBehaviour {
-
+public class StatusScreen : MonoBehaviour
+{
 	public GameObject HE;
 	public GameObject HQ1;
 	public GameObject HH1;
@@ -44,12 +44,8 @@ public class StatusScreen : MonoBehaviour {
 	public GameObject Cu;
 	public GameObject Ch;
 
-
-
-
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -141,7 +137,6 @@ public class StatusScreen : MonoBehaviour {
 		else
 			HQ4.SetActive (false);
 
-
 		//Focus and Special Bottun HUD Handler
 		if (UIManager.maxMana >= 10)
 			MB.SetActive (true);
@@ -179,7 +174,7 @@ public class StatusScreen : MonoBehaviour {
 			M5.SetActive (false);
 		}
 
-		if (UIManager.manaValue >= 4)
+        if (UIManager.manaValue >= 4)
 			M4.SetActive (true);
 		else 
 			M4.SetActive (false);
@@ -201,7 +196,6 @@ public class StatusScreen : MonoBehaviour {
 			M1.SetActive (false);
 		}
 			
-
 		if (InventoryManager.keyValue >= 1) {
 			Key1.SetActive (true);
 			}
@@ -215,7 +209,7 @@ public class StatusScreen : MonoBehaviour {
 			Key4.SetActive (true);
 			}
 
-		if (InventoryManager.RPnum > 0) {
+        if (InventoryManager.RPnum > 0) {
 			RP.SetActive (true);
 			}
 		if (InventoryManager.BPnum > 0) {
@@ -227,7 +221,5 @@ public class StatusScreen : MonoBehaviour {
 		if (InventoryManager.Chnum > 0) {
 			Ch.SetActive (true);
 			}
-
-
 	}
 }

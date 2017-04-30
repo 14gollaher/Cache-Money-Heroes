@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerWolf : MonoBehaviour
 {
-
     public float health;
     public float speed;
     public float pullRange;
@@ -56,7 +55,6 @@ public class PlayerWolf : MonoBehaviour
                 animator.SetInteger("Direction", 2);
                 animator.SetBool("Move", true);
             }
-
             // Gets a vector that points from the player's position to the target's.
             var heading = transform.position - player.position;
             var myDistance = heading.magnitude;
@@ -100,7 +98,6 @@ public class PlayerWolf : MonoBehaviour
             animator.SetInteger("Direction", 2);
             animator.SetBool("Move", true);
 
-
             // Gets a vector that points from the player's position to the target's.
             var heading = transform.position - enemyTarget.position;
             var myDistance = heading.magnitude;
@@ -142,12 +139,7 @@ public class PlayerWolf : MonoBehaviour
                     animator.SetBool("Move", false);
                 }
             }
-
-
-
         }
-
-
     }
 
     private bool isAround0(float x)

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Mage : MonoBehaviour {
-
+public class Mage : MonoBehaviour
+{
 	private Animator animator;
 	private SpriteRenderer SpriteRend;
 	public Rigidbody2D rb2d;
@@ -15,12 +15,10 @@ public class Mage : MonoBehaviour {
 	public GameObject ShieldSpell;
 	public Transform SpellSpawn;
 
-	// Player Stats
 	public float speed = 1F;
 	public int health = 3;
 	public int mana = 3;
 
-	// Firing Speed
 	public int shotSpeed = 1200;
 	public float fireDelay = 0.25F;
 	private float nextFire = 0.25F;
@@ -28,8 +26,8 @@ public class Mage : MonoBehaviour {
 	private float immuneTimeStamp;
 	private bool isImmune = false;
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		animator = this.GetComponent<Animator>();
 		SpriteRend = this.GetComponent<SpriteRenderer>();
 	}
@@ -54,8 +52,9 @@ public class Mage : MonoBehaviour {
 		}
 	}
 
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+
 		if (health <= 0)
 		{
 			SceneManager.LoadScene("MainMenu");
@@ -70,7 +69,6 @@ public class Mage : MonoBehaviour {
 			}
 		}
 
-		// Controls Movement
 		var vertical = Input.GetAxis("Vertical");
 		var horizontal = Input.GetAxis("Horizontal");
 		myTime = myTime + Time.deltaTime;
@@ -100,7 +98,6 @@ public class Mage : MonoBehaviour {
 			animator.SetBool("Move", false);
 		}
 
-		// Attacks
 		if (Input.GetKeyDown(KeyCode.Space) && myTime > nextFire)
 		{
 			animator.SetTrigger("Attack");
@@ -118,7 +115,6 @@ public class Mage : MonoBehaviour {
 			nextFire = nextFire - myTime;
 			myTime = 0.0F;
 		}
-
 		transform.Translate(horizontal * speed, vertical * speed, 0);
 	}
 

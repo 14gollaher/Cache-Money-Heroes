@@ -57,8 +57,8 @@ public class BossFixed : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
-                var dungeonManager = GetComponentInParent<MiniDungeonManager>();
-                dungeonManager.enemiesForKeyPrivate += -1;
+                
+                MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
 

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class EnemyFixedRanged : MonoBehaviour
 {
-
     public float health;
     public float speed;
     public float pullRange;
@@ -38,27 +37,21 @@ public class EnemyFixedRanged : MonoBehaviour
     {
         myTime = myTime + Time.deltaTime;
 
-
         if (health <= 0)
         {
             Destroy(this.gameObject);
         }
-
 
         if (health <= 0)
         {
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
-                var dungeonManager = GetComponentInParent<MiniDungeonManager>();
-                dungeonManager.enemiesForKeyPrivate += -1;
+                MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
-
             PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
-            int currentScore = PlayerPrefs.GetInt("highScore");
             Destroy(this.gameObject);
         }
-
 
         if (timeStamp < Time.time)
         {
@@ -79,11 +72,9 @@ public class EnemyFixedRanged : MonoBehaviour
             }
         }
 
-
         else if ((distance < pullRange) && myTime > nextFire)
         {
             movedPosition = true;
-            float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
             nextFire = myTime + fireDelay;
             Invoke("Fire", 0.7692308F / 2);
             nextFire = nextFire - myTime;

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-
     public static int defense = 1;
     public static int attack = 1;
 
@@ -51,10 +50,8 @@ public class UIManager : MonoBehaviour
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Heart HUD Handler
         if (maxHealth >= 16)
             HE.SetActive(true);
         else
@@ -140,8 +137,6 @@ public class UIManager : MonoBehaviour
         else
             HQ4.SetActive(false);
 
-
-        //Focus and Special Bottun HUD Handler
         if (maxMana >= 10)
             MB.SetActive(true);
         else

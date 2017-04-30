@@ -19,12 +19,8 @@ public class EnemyFixed : MonoBehaviour
     private float initialPositionY;
     private SpriteRenderer SpriteRend;
     private float timeStamp;
-    //public Text scoreText;
     void Start()
     {
-        //int currentScore = PlayerPrefs.GetInt("highScore");
-        //scoreText.text = ("Enemies Slain : " + currentScore.ToString());
-
         initialPositionX = transform.position.x;
         initialPositionY = transform.position.y;
         rb2d = GetComponent<Rigidbody2D>();
@@ -34,16 +30,6 @@ public class EnemyFixed : MonoBehaviour
 
     void FixedUpdate()
     {
-
-   //     if (health <= 0)
-   //     {
-			//if (UIManager.manaValue < 10) {
-			//	UIManager.manaValue++;
-			//}
-   //         Destroy(this.gameObject);
-   //     }
-
-
         if (health <= 0)
         {
             Transitioner.enemiesKilled += 1;
@@ -54,13 +40,11 @@ public class EnemyFixed : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
-                var dungeonManager = GetComponentInParent<MiniDungeonManager>();
-                dungeonManager.enemiesForKeyPrivate += -1;
+                MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
             Destroy(this.gameObject);
         }
-
 
         if (timeStamp < Time.time)
         {
@@ -192,7 +176,6 @@ public class EnemyFixed : MonoBehaviour
             SpriteRend.color = new Color(255F, 0F, 0F, .75F);
             timeStamp = Time.time + .35F;
             health--;
-		
         }
     }
 }
