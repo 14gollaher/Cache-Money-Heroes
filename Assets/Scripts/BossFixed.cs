@@ -53,7 +53,6 @@ public class BossFixed : MonoBehaviour
 
             animator.SetTrigger("Death");
             animator.SetBool("Move", false);
-            Destroy(this.gameObject);//, deathAnimation.length*2);
 
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
@@ -61,6 +60,7 @@ public class BossFixed : MonoBehaviour
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
+            Destroy(this.gameObject, deathAnimation.length * 5);
 
             //PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
             //int currentScore = PlayerPrefs.GetInt("highScore");
