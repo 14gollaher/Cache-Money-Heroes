@@ -70,7 +70,7 @@ public class DragonBoss : MonoBehaviour {
             if (health < 70)
             {
                 Invoke("Fire2", 1F);
-                if (health < 30)
+                if (health < 40)
                 {
                     Invoke("Fire3", 1F);
                     myTime = 4.0F;
@@ -138,27 +138,27 @@ public class DragonBoss : MonoBehaviour {
         var arrow8 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 286));
         var arrow9 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 288));
 
-        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -2 * shotSpeed);
-        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -2 * shotSpeed);
-        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -2 * shotSpeed);
-        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -2 * shotSpeed);
-        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -2 * shotSpeed);
-        arrow5.GetComponent<Rigidbody2D>().AddForce(arrow5.transform.up * -2 * shotSpeed);
-        arrow6.GetComponent<Rigidbody2D>().AddForce(arrow6.transform.up * -2 * shotSpeed);
-        arrow7.GetComponent<Rigidbody2D>().AddForce(arrow7.transform.up * -2 * shotSpeed);
-        arrow8.GetComponent<Rigidbody2D>().AddForce(arrow8.transform.up * -2 * shotSpeed);
-        arrow9.GetComponent<Rigidbody2D>().AddForce(arrow9.transform.up * -2 * shotSpeed);
+        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -0.5f * shotSpeed);
+        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -0.5f * shotSpeed);
+        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -0.5f * shotSpeed);
+        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -0.5f * shotSpeed);
+        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -0.5f * shotSpeed);
+        arrow5.GetComponent<Rigidbody2D>().AddForce(arrow5.transform.up * -0.5f * shotSpeed);
+        arrow6.GetComponent<Rigidbody2D>().AddForce(arrow6.transform.up * -0.5f * shotSpeed);
+        arrow7.GetComponent<Rigidbody2D>().AddForce(arrow7.transform.up * -0.5f * shotSpeed);
+        arrow8.GetComponent<Rigidbody2D>().AddForce(arrow8.transform.up * -0.5f * shotSpeed);
+        arrow9.GetComponent<Rigidbody2D>().AddForce(arrow9.transform.up * -0.5f * shotSpeed);
 
-        Destroy(arrow0, 3.0F);
-        Destroy(arrow, 3.0f);
-        Destroy(arrow2, 3.0f);
-        Destroy(arrow3, 3.0f);
-        Destroy(arrow4, 3.0F);
-        Destroy(arrow5, 3.0F);
-        Destroy(arrow6, 3.0f);
-        Destroy(arrow7, 3.0f);
-        Destroy(arrow8, 3.0f);
-        Destroy(arrow9, 3.0F);
+        Destroy(arrow0, 10.0F);
+        Destroy(arrow, 10.0f);
+        Destroy(arrow2, 10.0f);
+        Destroy(arrow3, 10.0f);
+        Destroy(arrow4, 10.0F);
+        Destroy(arrow5, 10.0F);
+        Destroy(arrow6, 10.0f);
+        Destroy(arrow7, 10.0f);
+        Destroy(arrow8, 10.0f);
+        Destroy(arrow9, 10.0F);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
