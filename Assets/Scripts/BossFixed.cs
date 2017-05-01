@@ -21,6 +21,7 @@ public class BossFixed : MonoBehaviour
     private float timeStamp;
     //public Text scoreText;
     public AnimationClip deathAnimation;
+    private bool deathBool;
 
 
     void Start()
@@ -33,6 +34,7 @@ public class BossFixed : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         SpriteRend = this.GetComponent<SpriteRenderer>();
+        deathBool = false;
     }
 
     void FixedUpdate()
@@ -54,10 +56,11 @@ public class BossFixed : MonoBehaviour
             animator.SetTrigger("Death");
             animator.SetBool("Move", false);
 
-            if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
+            if ((SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon") && deathBool == false)
             {
                 
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
+                deathBool = true;
             }
 
             Destroy(this.gameObject, deathAnimation.length * 5);
