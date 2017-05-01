@@ -22,7 +22,7 @@ public class Mage : MonoBehaviour
 	public int mana = 3;
 
 	public int shotSpeed = 10000;
-	public int shotSpeed = 1200;
+	public int fireLionSpeed = 1200;
 	public float fireDelay = 0.25F;
 	private float nextFire = 0.25F;
 	private float myTime = 0.0F;
