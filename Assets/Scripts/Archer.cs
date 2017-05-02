@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System;
 
 public class Archer : MonoBehaviour
 {
@@ -35,27 +37,6 @@ public class Archer : MonoBehaviour
         {
             transformX = 1041F;
             transformY = -3127F;
-        }
-
-        if (SceneManager.GetActiveScene().name == "EarthDungeon")
-        {
-        }
-        else if (SceneManager.GetActiveScene().name == "GrassDungeon")
-        {
-        }
-
-        else if (SceneManager.GetActiveScene().name == "IceDungeon")
-        {
-        }
-
-        else if (SceneManager.GetActiveScene().name == "FireDungeon")
-        {
-        }
-
-        else if (SceneManager.GetActiveScene().name == "CastleFront")
-        {
-
-
         }
     }
 
@@ -119,7 +100,7 @@ public class Archer : MonoBehaviour
         {
             SceneManager.LoadScene("GrassDungeon");
         }
-
+      
         else if (other.gameObject.tag == "IceDungeonTransition")
         {
             SceneManager.LoadScene("IceDungeon");
@@ -144,7 +125,18 @@ public class Archer : MonoBehaviour
 
 		if (health <= 0)
         {
-            SceneManager.LoadScene("MainMenu");
+            var fileText = File.ReadAllText("HighScores.txt");
+            var currentHighScore = Convert.ToInt32(fileText);
+            if (HighScores.highScoreValue > currentHighScore)
+            {
+                using (var sr = new StreamWriter("HighScores.txt"))
+                {
+                    sr.AutoFlush = true;
+                    sr.WriteLine(HighScores.highScoreValue);
+                }
+            }
+
+            SceneManager.LoadScene("Credits");
         }
         
         if (isInvisible == true)

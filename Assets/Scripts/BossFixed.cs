@@ -26,9 +26,6 @@ public class BossFixed : MonoBehaviour
 
     void Start()
     {
-        //int currentScore = PlayerPrefs.GetInt("highScore");
-        //scoreText.text = ("Enemies Slain : " + currentScore.ToString());
-
         initialPositionX = transform.position.x;
         initialPositionY = transform.position.y;
         rb2d = GetComponent<Rigidbody2D>();
@@ -39,15 +36,6 @@ public class BossFixed : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
-   //     if (health <= 0)
-   //     {
-   //         animator.SetTrigger("Death");
-   //         animator.SetBool("Move", false);
-			//Destroy (this.gameObject);//, deathAnimation.length*2);
-   //     }
-
 
         if (health <= 0)
         {
@@ -65,9 +53,8 @@ public class BossFixed : MonoBehaviour
 
             Destroy(this.gameObject, deathAnimation.length * 5);
 
-            //PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
-            //int currentScore = PlayerPrefs.GetInt("highScore");
-            //scoreText.text = ("Enemies Slain : " + currentScore.ToString());                        
+            HighScores.highScoreValue += 10;
+
         }
 
 
