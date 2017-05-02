@@ -42,7 +42,10 @@ public class BossFixed : MonoBehaviour
 
             animator.SetTrigger("Death");
             animator.SetBool("Move", false);
-
+            if (UIManager.manaValue < 5)
+            {
+                UIManager.manaValue++;
+            }
             if ((SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon" || SceneManager.GetActiveScene().name == "CastleFloor9") && deathBool == false)
             {
                 

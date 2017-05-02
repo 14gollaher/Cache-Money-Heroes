@@ -136,7 +136,7 @@ public class Archer : MonoBehaviour
                 }
             }
 
-            SceneManager.LoadScene("Credits");
+            SceneManager.LoadScene("MainMenu");
         }
         
         if (isInvisible == true)

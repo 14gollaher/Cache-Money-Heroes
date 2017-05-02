@@ -34,7 +34,7 @@ public class EnemyFixed : MonoBehaviour
         {
             Transitioner.enemiesKilled += 1;
             HighScores.highScoreValue += 1;
-            if (UIManager.manaValue < 10)
+            if (UIManager.manaValue < 5)
             {
                 UIManager.manaValue++;
             }
