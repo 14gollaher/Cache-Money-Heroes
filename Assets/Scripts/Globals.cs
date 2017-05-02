@@ -6,7 +6,7 @@ public class Globals : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PlayerPrefs.SetInt("highScore", 0);
+        HighScores.highScoreValue += 0;
     }
 
     // Update is called once per frame

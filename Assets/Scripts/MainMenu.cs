@@ -23,7 +23,6 @@ public class MainMenu : MonoBehaviour
 
         PlayerPrefs.SetFloat("TransformX", -1F);
         PlayerPrefs.SetFloat("TransformY", -1F);
-        PlayerPrefs.SetInt("highScore", 0);
 
         PlayerPrefs.SetInt("FireDungeon", 0);
         PlayerPrefs.SetInt("EarthDungeon", 0);

@@ -13,9 +13,6 @@ public class DragonBoss : MonoBehaviour {
     public Transform player;
     public Rigidbody2D rb2d;
     private Animator animator;
-    private bool movedPosition = false;
-    private float initialPositionX;
-    private float initialPositionY;
     private SpriteRenderer SpriteRend;
     private float timeStamp;
     public GameObject ArrowPrefab;
@@ -27,8 +24,6 @@ public class DragonBoss : MonoBehaviour {
 
     void Start()
     {
-        initialPositionX = transform.position.x;
-        initialPositionY = transform.position.y;
         animator = this.GetComponent<Animator>();
         SpriteRend = this.GetComponent<SpriteRenderer>();
     }
@@ -40,6 +35,8 @@ public class DragonBoss : MonoBehaviour {
         if (health <= 0)
         {
             Destroy(this.gameObject);
+            SceneManager.LoadScene("Credits");
+
         }
 
         if (health <= 0)
@@ -49,7 +46,8 @@ public class DragonBoss : MonoBehaviour {
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
-            PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 100);
+            HighScores.highScoreValue += 100;
+
             Destroy(this.gameObject);
         }
 

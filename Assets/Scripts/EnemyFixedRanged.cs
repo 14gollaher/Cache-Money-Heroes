@@ -49,7 +49,7 @@ public class EnemyFixedRanged : MonoBehaviour
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
-            PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 1);
+            HighScores.highScoreValue += 1;
             Destroy(this.gameObject);
         }
 

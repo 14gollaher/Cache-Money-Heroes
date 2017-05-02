@@ -33,7 +33,7 @@ public class EnemyFixed : MonoBehaviour
         if (health <= 0)
         {
             Transitioner.enemiesKilled += 1;
-
+            HighScores.highScoreValue += 1;
             if (UIManager.manaValue < 10)
             {
                 UIManager.manaValue++;

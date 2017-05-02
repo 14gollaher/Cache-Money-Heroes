@@ -9,8 +9,8 @@ public class PlayerWolf : MonoBehaviour
     public float health;
     public float speed;
     public float pullRange;
-    private Transform player;
-    public Transform enemyTarget;
+    public Transform player;
+    public static Transform enemyTarget;
     public Rigidbody2D rb;
     private Animator animator;
     public float spawnTimeStamp;

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
+    public Text scoreText;
     public static int defense = 1;
     public static int attack = 1;
 
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        scoreText.text = "Score : " + HighScores.highScoreValue;
         if (maxHealth >= 16)
             HE.SetActive(true);
         else
