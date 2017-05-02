@@ -51,15 +51,15 @@ public class BossFixed : MonoBehaviour
 
         if (health <= 0)
         {
-            Transitioner.enemiesKilled += 1;
 
             animator.SetTrigger("Death");
             animator.SetBool("Move", false);
 
-            if ((SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon") && deathBool == false)
+            if ((SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon" || SceneManager.GetActiveScene().name == "CastleFloor9") && deathBool == false)
             {
                 
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
+                Transitioner.enemiesKilled += 1;
                 deathBool = true;
             }
 

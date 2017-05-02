@@ -252,25 +252,25 @@ public class Archer : MonoBehaviour
         {
             var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 90));
             arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
-            Destroy(arrow, 3.0f);
+            Destroy(arrow, 2.0f);
         }
         else if (animator.GetInteger("Direction") == 1)
         {
             var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 360));
             arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
-            Destroy(arrow, 3.0f);
+            Destroy(arrow, 2.0f);
         }
         else if (animator.GetInteger("Direction") == 2)
         {
             var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 270));
             arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
-            Destroy(arrow, 3.0f);
+            Destroy(arrow, 2.0f);
         }
         else if (animator.GetInteger("Direction") == 3)
         {
             var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 180, 0));
             arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.right * -1 * shotSpeed);
-            Destroy(arrow, 3.0f);
+            Destroy(arrow, 2.0f);
         }
     }
     void TripleShot()
@@ -286,9 +286,9 @@ public class Archer : MonoBehaviour
 				arrow2.GetComponent<Rigidbody2D> ().AddForce (arrow2.transform.right * -1 * shotSpeed);
 				arrow3.GetComponent<Rigidbody2D> ().AddForce (arrow3.transform.right * -1 * shotSpeed);
 
-				Destroy (arrow, 3.0f);
-				Destroy (arrow2, 3.0f);
-				Destroy (arrow3, 3.0f);
+				Destroy (arrow, 2.0f);
+				Destroy (arrow2, 2.0f);
+				Destroy (arrow3, 2.0f);
 
 			} else if (animator.GetInteger ("Direction") == 1) {
 				var arrow = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 340));
@@ -299,9 +299,9 @@ public class Archer : MonoBehaviour
 				arrow2.GetComponent<Rigidbody2D> ().AddForce (arrow2.transform.right * -1 * shotSpeed);
 				arrow3.GetComponent<Rigidbody2D> ().AddForce (arrow3.transform.right * -1 * shotSpeed);
 
-				Destroy (arrow, 3.0f);
-				Destroy (arrow2, 3.0f);
-				Destroy (arrow3, 3.0f);
+				Destroy (arrow, 2.0f);
+				Destroy (arrow2, 2.0f);
+				Destroy (arrow3, 2.0f);
 
 			} else if (animator.GetInteger ("Direction") == 2) {
 				var arrow = (GameObject)Instantiate (ArrowPrefab, ArrowSpawn.position, Quaternion.Euler (0, 0, 250));
@@ -312,9 +312,9 @@ public class Archer : MonoBehaviour
 				arrow2.GetComponent<Rigidbody2D> ().AddForce (arrow2.transform.right * -1 * shotSpeed);
 				arrow3.GetComponent<Rigidbody2D> ().AddForce (arrow3.transform.right * -1 * shotSpeed);
 
-				Destroy (arrow, 3.0f);
-				Destroy (arrow2, 3.0f);
-				Destroy (arrow3, 3.0f);
+				Destroy (arrow, 2.0f);
+				Destroy (arrow2, 2.0f);
+				Destroy (arrow3, 2.0f);
 
 			} else if (animator.GetInteger ("Direction") == 3) {
 
@@ -326,9 +326,9 @@ public class Archer : MonoBehaviour
 				arrow2.GetComponent<Rigidbody2D> ().AddForce (arrow2.transform.right * -1 * shotSpeed);
 				arrow3.GetComponent<Rigidbody2D> ().AddForce (arrow3.transform.right * -1 * shotSpeed);
 
-				Destroy (arrow, 3.0f);
-				Destroy (arrow2, 3.0f);
-				Destroy (arrow3, 3.0f);
+				Destroy (arrow, 2.0f);
+				Destroy (arrow2, 2.0f);
+				Destroy (arrow3, 2.0f);
 			}
 		}
     }

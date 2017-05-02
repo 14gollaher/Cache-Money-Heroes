@@ -9,7 +9,6 @@ public class WolfRadius : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -24,8 +23,9 @@ public class WolfRadius : MonoBehaviour
         {
             if (transform.parent && transform.parent.gameObject != other.gameObject)
             {
-                var playerWolf = GetComponentInParent<PlayerWolf>();
-                playerWolf.enemyTarget = other.gameObject.transform;
+                PlayerWolf.enemyTarget = other.gameObject.transform;
+                //var playerWolf = GetComponentInParent<PlayerWolf>();
+                //playerWolf.enemyTarget = other.gameObject.transform;
             }
         }
     }

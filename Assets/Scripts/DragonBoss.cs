@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class DragonBoss : MonoBehaviour {
 
@@ -13,7 +14,6 @@ public class DragonBoss : MonoBehaviour {
     public Transform player;
     public Rigidbody2D rb2d;
     private Animator animator;
-    private bool movedPosition = false;
     private float initialPositionX;
     private float initialPositionY;
     private SpriteRenderer SpriteRend;
@@ -25,22 +25,21 @@ public class DragonBoss : MonoBehaviour {
     private float nextFire = 0.25F;
     private float myTime = 0.0F;
 
+    private int count = 0;
+    private float endTime = 0.0F;
+
     void Start()
     {
         initialPositionX = transform.position.x;
         initialPositionY = transform.position.y;
         animator = this.GetComponent<Animator>();
         SpriteRend = this.GetComponent<SpriteRenderer>();
+        endTime = 10.0f;
     }
 
     void FixedUpdate()
     {
         myTime = myTime + Time.deltaTime;
-
-        if (health <= 0)
-        {
-            Destroy(this.gameObject);
-        }
 
         if (health <= 0)
         {
@@ -50,7 +49,8 @@ public class DragonBoss : MonoBehaviour {
             }
 
             PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 100);
-            Destroy(this.gameObject);
+
+            SceneManager.LoadScene("Credits");
         }
 
         if (timeStamp < Time.time)
@@ -70,10 +70,10 @@ public class DragonBoss : MonoBehaviour {
             if (health < 70)
             {
                 Invoke("Fire2", 1F);
-                if (health < 40)
+                if (health <= 40)
                 {
                     Invoke("Fire3", 1F);
-                    myTime = 4.0F;
+                    myTime = 3.0F;
                 }
                 else
                     myTime = 2.5F;
@@ -83,23 +83,40 @@ public class DragonBoss : MonoBehaviour {
 
     void Fire()
     {
-        var arrow0 = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 230));
-        var arrow = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 250));
-        var arrow2 = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 270));
-        var arrow3 = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 290));
-        var arrow4 = (GameObject)Instantiate(ArrowPrefab, ArrowSpawn.position, Quaternion.Euler(0, 0, 310));
+        Vector3 randomPosition = new Vector3(950, Random.Range(-750.0f, -810.0f), 0);
 
-        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -1 * shotSpeed);
-        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -1 * shotSpeed);
-        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -1 * shotSpeed);
-        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -1 * shotSpeed);
-        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -1 * shotSpeed);
+        var arrow0 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 230));
+        var arrow = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 240));
+        var arrow2 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 250));
+        var arrow3 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 260));
+        var arrow4 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 270));
+        var arrow5 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 280));
+        var arrow6 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 290));
+        var arrow7 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 300));
+        var arrow8 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 310));
+        var arrow9 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 320));
 
-        Destroy(arrow0, 3.0F);
-        Destroy(arrow, 3.0f);
-        Destroy(arrow2, 3.0f);
-        Destroy(arrow3, 3.0f);
-        Destroy(arrow4, 3.0F);
+        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -0.5f * shotSpeed);
+        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -0.5f * shotSpeed);
+        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -0.5f * shotSpeed);
+        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -0.5f * shotSpeed);
+        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -0.5f * shotSpeed);
+        arrow5.GetComponent<Rigidbody2D>().AddForce(arrow5.transform.up * -0.5f * shotSpeed);
+        arrow6.GetComponent<Rigidbody2D>().AddForce(arrow6.transform.up * -0.5f * shotSpeed);
+        arrow7.GetComponent<Rigidbody2D>().AddForce(arrow7.transform.up * -0.5f * shotSpeed);
+        arrow8.GetComponent<Rigidbody2D>().AddForce(arrow8.transform.up * -0.5f * shotSpeed);
+        arrow9.GetComponent<Rigidbody2D>().AddForce(arrow9.transform.up * -0.5f * shotSpeed);
+
+        Destroy(arrow0, 10.0F);
+        Destroy(arrow, 10.0f);
+        Destroy(arrow2, 10.0f);
+        Destroy(arrow3, 10.0f);
+        Destroy(arrow4, 10.0F);
+        Destroy(arrow5, 10.0F);
+        Destroy(arrow6, 10.0f);
+        Destroy(arrow7, 10.0f);
+        Destroy(arrow8, 10.0f);
+        Destroy(arrow9, 10.0F);
     }
 
     void Fire2()
@@ -125,29 +142,29 @@ public class DragonBoss : MonoBehaviour {
 
     void Fire3()
     {
-        Vector3 randomPosition = new Vector3(1059, Random.Range(-750.0f, -810.0f), 0);
+        Vector3 randomPosition = new Vector3(950, Random.Range(-750.0f, -810.0f), 0);
 
-        var arrow0 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 267));
-        var arrow = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 269));
-        var arrow2 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 271));
-        var arrow3 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 273));
-        var arrow4 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 275));
-        var arrow5 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 280));
-        var arrow6 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 282));
-        var arrow7 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 284));
-        var arrow8 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 286));
-        var arrow9 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 288));
+        var arrow0 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 233));
+        var arrow = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 243));
+        var arrow2 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 253));
+        var arrow3 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 263));
+        var arrow4 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 273));
+        var arrow5 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 283));
+        var arrow6 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 293));
+        var arrow7 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 303));
+        var arrow8 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 313));
+        var arrow9 = (GameObject)Instantiate(ArrowPrefab, randomPosition, Quaternion.Euler(0, 0, 323));
 
-        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -0.5f * shotSpeed);
-        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -0.5f * shotSpeed);
-        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -0.5f * shotSpeed);
-        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -0.5f * shotSpeed);
-        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -0.5f * shotSpeed);
-        arrow5.GetComponent<Rigidbody2D>().AddForce(arrow5.transform.up * -0.5f * shotSpeed);
-        arrow6.GetComponent<Rigidbody2D>().AddForce(arrow6.transform.up * -0.5f * shotSpeed);
-        arrow7.GetComponent<Rigidbody2D>().AddForce(arrow7.transform.up * -0.5f * shotSpeed);
-        arrow8.GetComponent<Rigidbody2D>().AddForce(arrow8.transform.up * -0.5f * shotSpeed);
-        arrow9.GetComponent<Rigidbody2D>().AddForce(arrow9.transform.up * -0.5f * shotSpeed);
+        arrow0.GetComponent<Rigidbody2D>().AddForce(arrow0.transform.up * -0.85f * shotSpeed);
+        arrow.GetComponent<Rigidbody2D>().AddForce(arrow.transform.up * -0.85f * shotSpeed);
+        arrow2.GetComponent<Rigidbody2D>().AddForce(arrow2.transform.up * -0.85f * shotSpeed);
+        arrow3.GetComponent<Rigidbody2D>().AddForce(arrow3.transform.up * -0.85f * shotSpeed);
+        arrow4.GetComponent<Rigidbody2D>().AddForce(arrow4.transform.up * -0.85f * shotSpeed);
+        arrow5.GetComponent<Rigidbody2D>().AddForce(arrow5.transform.up * -0.85f * shotSpeed);
+        arrow6.GetComponent<Rigidbody2D>().AddForce(arrow6.transform.up * -0.85f * shotSpeed);
+        arrow7.GetComponent<Rigidbody2D>().AddForce(arrow7.transform.up * -0.85f * shotSpeed);
+        arrow8.GetComponent<Rigidbody2D>().AddForce(arrow8.transform.up * -0.85f * shotSpeed);
+        arrow9.GetComponent<Rigidbody2D>().AddForce(arrow9.transform.up * -0.85f * shotSpeed);
 
         Destroy(arrow0, 10.0F);
         Destroy(arrow, 10.0f);

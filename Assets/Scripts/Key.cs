@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Key : MonoBehaviour {
 
@@ -19,6 +21,8 @@ public class Key : MonoBehaviour {
         {
             Destroy(gameObject);
 			InventoryManager.keyValue++;
+
+            SceneManager.LoadScene("Outdoor");
         }
     }
 }
