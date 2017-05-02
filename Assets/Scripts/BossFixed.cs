@@ -48,13 +48,12 @@ public class BossFixed : MonoBehaviour
                 
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
                 Transitioner.enemiesKilled += 1;
+                HighScores.highScoreValue += 10;
+
                 deathBool = true;
             }
 
             Destroy(this.gameObject, deathAnimation.length * 5);
-
-            HighScores.highScoreValue += 10;
-
         }
 
 
