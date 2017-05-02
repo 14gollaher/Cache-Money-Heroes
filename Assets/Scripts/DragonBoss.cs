@@ -14,11 +14,8 @@ public class DragonBoss : MonoBehaviour {
     public Transform player;
     public Rigidbody2D rb2d;
     private Animator animator;
-<<<<<<< HEAD
     private float initialPositionX;
     private float initialPositionY;
-=======
->>>>>>> master
     private SpriteRenderer SpriteRend;
     private float timeStamp;
     public GameObject ArrowPrefab;
@@ -28,46 +25,29 @@ public class DragonBoss : MonoBehaviour {
     private float nextFire = 0.25F;
     private float myTime = 0.0F;
 
-    private int count = 0;
-    private float endTime = 0.0F;
-
     void Start()
     {
         animator = this.GetComponent<Animator>();
         SpriteRend = this.GetComponent<SpriteRenderer>();
-        endTime = 10.0f;
     }
 
     void FixedUpdate()
     {
         myTime = myTime + Time.deltaTime;
 
-        if (health <= 0)
-        {
-<<<<<<< HEAD
-=======
-            Destroy(this.gameObject);
-            SceneManager.LoadScene("Credits");
-
-        }
 
         if (health <= 0)
         {
->>>>>>> master
             if (SceneManager.GetActiveScene().name == "EarthDungeon" || SceneManager.GetActiveScene().name == "GrassDungeon" || SceneManager.GetActiveScene().name == "FireDungeon" || SceneManager.GetActiveScene().name == "IceDungeon")
             {
                 MiniDungeonManager.enemiesForKeyPrivate += -1;
             }
 
-<<<<<<< HEAD
-            PlayerPrefs.SetInt("highScore", PlayerPrefs.GetInt("highScore") + 100);
-
-            SceneManager.LoadScene("Credits");
-=======
             HighScores.highScoreValue += 100;
 
             Destroy(this.gameObject);
->>>>>>> master
+
+            SceneManager.LoadScene("Credits");
         }
 
         if (timeStamp < Time.time)
